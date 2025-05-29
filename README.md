@@ -10,7 +10,7 @@
 ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝╚═╝     ╚═╝╚═╝  ╚═╝
 ```
 
-[r0NIMA](./assets/r0NIMa.png)
+![r0NIMA](./assets/r0NIMa.png)
 
 Stage 2 all in 1 McDonalds come as you are payload
 
