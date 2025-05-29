@@ -15,7 +15,7 @@
 Stage 2 all in 1 McDonalds come as you are payload
 
 
-## Install
+## Install
 
 1. Install Nim via [Choosenim](https://github.com/nim-lang/choosenim)
 
