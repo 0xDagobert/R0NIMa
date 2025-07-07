@@ -1,0 +1,5 @@
+{
+    "basic.exe": "nim c -d:mingw --app:console --cpu:amd64 -o:basic.exe src/index.nim",
+    "optiNim.exe": " nim c -d:mingw -d:release -d:useMalloc -d:strip -d:lto -d:noSignalHandler --app:console  --cpu:amd64 --opt:size --warning:off -o:optiNim.exe src/index.nim",
+    "optiNim_C.exe": "nim c -d:mingw -d:release -d:useMalloc -d:strip -d:lto -d:noSignalHandler --app:console  --cpu:amd64 --opt:size --warning:off --checks:off --define:nimNoSignalHandler --passC:'-fdata-sections -ffunction-sections -fno-asynchronous-unwind-tables -fno-exceptions -fno-rtti -fno-stack-protector -fomit-frame-pointer -w -s' --passL:'-Wl,--gc-sections -Wl,-s' -o:optiNim_C.exe ./src/index.nim"
+}
