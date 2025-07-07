@@ -55,7 +55,7 @@ Détaillons quelques points clés du NIm afin de faciliter la compréhension du 
 
 Voici une vue de comment la compilation va marcher chez Nim:
 
-![[./Excalidraw/Cmp.excalidraw]]
+![[./Cmp.excalidraw]]
 
 Prenons pour exemple la compilation vers le C:
 - Le fichier Nim va être "transformé" en fichier source .c grâce à la FFI Nim
